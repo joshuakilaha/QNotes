@@ -9,3 +9,10 @@ Use Core Data to save your application’s permanent data for offline use, to ca
 Through Core Data’s Data Model editor, you define your data’s types and relationships, and generate respective class definitions. Core Data can then manage object instances at runtime to provide the following features.
 ## Persistence
 Core Data abstracts the details of mapping your objects to a store, making it easy to save data from Swift and Objective-C without administering a database directly.
+
+
+<p float="left">
+<img src ="https://user-images.githubusercontent.com/33428918/162283234-2889a388-6ddf-4718-a05d-ffe03e3c6743.PNG" width="250" height="400" /> 
+<img src ="https://user-images.githubusercontent.com/33428918/162283255-7d0ebf56-9b4a-4ef5-a598-301b2259e44c.PNG" width="250" height="400" /> 
+<img src ="https://user-images.githubusercontent.com/33428918/162283259-8c648f1b-90f9-40c5-ab90-4e9a13da49a7.PNG" width="250" height="400" /> 
+ </p>

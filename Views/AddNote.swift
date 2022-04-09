@@ -16,6 +16,9 @@ struct AddNote: View {
     @State private var topic = ""
     @State private var subject = ""
     @State private var note = ""
+    @State private var image: Data = .init(count: 0)
+    
+    @State private var show = false
     
     var body: some View {
         
@@ -23,6 +26,29 @@ struct AddNote: View {
             
             ZStack(alignment: .topLeading) {
                 Form {
+                    Section(header: Text("Image")) {
+                        if self.image.count > 0 {
+                            Button(action: {
+                                self.show.toggle()
+                            }) {
+                                Image(uiImage: UIImage(data: self.image)!)
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .cornerRadius(6)
+                                
+                                
+                            }
+                        } else {
+                            Button(action: {
+                                self.show.toggle()
+                            }) {
+                                Image(systemName: "photo.fill")
+                                    .font(.system(size: 60))
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
                     Section {
                        TextField("Topic", text: $topic)
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -40,14 +66,19 @@ struct AddNote: View {
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button ("Done") {
-                        NoteDataController().addNote(context: managedObjContext, topic: topic, subject: subject, notes: note)
+                        //MARK: Add Note
+                        NoteDataController().addNote(context: managedObjContext, topic: topic, subject: subject, notes: note, imageN: image)
                         dismiss()
                     }
                 }
             }
             
         }
-       
+        
+        //MARK: Image Picker from photos
+        .sheet(isPresented: self.$show, content: {
+            ImagePicker(show: self.$show, image: self.$image)
+        })
     }
 }
 

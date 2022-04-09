@@ -14,6 +14,9 @@ struct EditNote: View {
     @State private var topic = ""
     @State private var subject = ""
     @State private var note = ""
+    @State private var image: Data = .init(count: 0)
+    
+    @State private var show = false //add icon
     
     var notes: FetchedResults<Note>.Element
     
@@ -22,6 +25,52 @@ struct EditNote: View {
             
             VStack(spacing: 20) {
                 Form {
+                    
+                    Section(header: Text("Image")) {
+                        
+                        //MARK: -To DO (condition to check nots.imageN
+                        if notes.imageN == nil {
+                            
+                         Image(systemName: "photo.fill")
+                             .font(.system(size: 60))
+                             .foregroundColor(.gray)
+
+                        } else {
+                            Image(uiImage: UIImage(data: notes.imageN!)!)
+                                .renderingMode(.original)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .cornerRadius(6)
+                        }
+                  
+                       // Image(uiImage: UIImage(data: $images)!)
+                        
+                        if self.image.count > 0 {
+                            Button(action: {
+                                self.show.toggle()
+                            }) {
+//                                Image(uiImage: UIImage(data: notes.imageN!)!)
+//                                    .renderingMode(.original)
+//                                    .resizable()
+//                                    .frame(width: 150, height: 150)
+//                                    .cornerRadius(6)
+
+                              // Text("Change Image") + Text(Image(uiImage: UIImage(data: self.image)!))
+                                Image(uiImage: UIImage(data: self.image)!)
+                                
+
+                            }
+                        }
+                        else {
+                            Button(action: {
+                                self.show.toggle()
+                            }) {
+                                Text("Change Image") + Text(Image(systemName: "photo.fill"))
+                                    .font(.system(size: 60))
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
                     Section(header: Text("Topic").fontWeight(.heavy).foregroundColor(.blue)) {
                         TextField("Topic", text: $topic)
                             .font(.title)
@@ -49,11 +98,17 @@ struct EditNote: View {
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button ("Update") {
-                    NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note)
+                    //NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note)
+                    NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note, imageN: image)
                     dismiss()
                 }
             }
         }
+        
+        //MARK: Image Picker from photos
+        .sheet(isPresented: self.$show, content: {
+            ImagePicker(show: self.$show, image: self.$image)
+        })
     }
 }
 

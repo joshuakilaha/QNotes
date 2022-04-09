@@ -16,6 +16,8 @@ struct ContentView: View {
     
     
     @State private var showingAddView = false //add icon
+    //@State var image: Data = .init(count: 0)
+    
     
     var body: some View {
         
@@ -26,8 +28,35 @@ struct ContentView: View {
                          ForEach(note) { note in
                              NavigationLink(destination: EditNote(notes: note)) {
                                  HStack{
+                                     let _ =  print("\(String(describing: note.imageN)) Image")
+                                    // let image = String(describing: note.imageN)
+//
+//                                     if self.image.count != 0 {
+//                                         Image(uiImage: UIImage(data: note.imageN ?? self.image)!)
+//                                             .resizable()
+//                                             .frame(width: 70, height: 70)
+//
+//                                     }
+//                                     else {
+//                                         Image(systemName: "photo.fill")
+//                                             .font(.system(size: 60))
+//                                             .foregroundColor(.gray)
+//                                     }
+
+                                     if note.imageN == nil {
+                                         Image(systemName: "photo.fill")
+                                             .font(.system(size: 60))
+                                             .foregroundColor(.gray)
+                                     }
+                                      else {
+                                          Image(uiImage: UIImage(data: note.imageN!)!)
+                                              .resizable()
+                                             .frame(width: 70, height: 70)
+  
+                                      }
+                                     
                                      VStack(alignment: .leading, spacing: 6) {
-                                         Text(note.topic!)
+                                         Text((note.topic!))
                                              .fontWeight(.black)
                                              .bold()
                                              

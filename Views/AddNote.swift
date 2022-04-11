@@ -31,6 +31,7 @@ struct AddNote: View {
                             Button(action: {
                                 self.show.toggle()
                             }) {
+                                //MARK: -TO DO  ADD progress bar
                                 Image(uiImage: UIImage(data: self.image)!)
                                     .renderingMode(.original)
                                     .resizable()

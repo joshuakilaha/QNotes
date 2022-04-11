@@ -11,14 +11,12 @@ import CoreData
 struct ContentView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
-    //@Environment(\.dismiss) var dismiss
+
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var note: FetchedResults<Note>
     
-    
     @State private var showingAddView = false //add icon
-    //@State var image: Data = .init(count: 0)
-    
-    
+    var img = Image(systemName: "photo.fill")
+  
     var body: some View {
         
         NavigationView {
@@ -28,35 +26,22 @@ struct ContentView: View {
                          ForEach(note) { note in
                              NavigationLink(destination: EditNote(notes: note)) {
                                  HStack{
+                                     
                                      let _ =  print("\(String(describing: note.imageN)) Image")
-                                    // let image = String(describing: note.imageN)
-//
-//                                     if self.image.count != 0 {
-//                                         Image(uiImage: UIImage(data: note.imageN ?? self.image)!)
-//                                             .resizable()
-//                                             .frame(width: 70, height: 70)
-//
-//                                     }
-//                                     else {
-//                                         Image(systemName: "photo.fill")
-//                                             .font(.system(size: 60))
-//                                             .foregroundColor(.gray)
-//                                     }
-
+                                     
                                      if note.imageN == nil {
                                          Image(systemName: "photo.fill")
                                              .font(.system(size: 60))
                                              .foregroundColor(.gray)
                                      }
                                       else {
-                                          Image(uiImage: UIImage(data: note.imageN!)!)
+                                          //MARK: - To DO (Optional Image fix)
+                                          Image(data: note.imageN, placeholder: String(describing: img))
                                               .resizable()
                                              .frame(width: 70, height: 70)
-  
                                       }
-                                     
                                      VStack(alignment: .leading, spacing: 6) {
-                                         Text((note.topic!))
+                                         Text(note.topic!)
                                              .fontWeight(.black)
                                              .bold()
                                              
@@ -137,5 +122,28 @@ extension UINavigationBarAppearance {
         backgroundColor = background
         UINavigationBar.appearance().scrollEdgeAppearance = self
         UINavigationBar.appearance().standardAppearance = self
+    }
+}
+
+//extension Image {
+//
+//    public init?(data: Data?) {
+//        guard let data = data,
+//            let uiImage = UIImage(data: data) else {
+//                return nil
+//        }
+//        self = Image(uiImage: uiImage)
+//    }
+//}
+
+extension Image {
+
+    public init(data: Data?, placeholder: String) {
+        guard let data = data,
+          let uiImage = UIImage(data: data) else {
+            self = Image(placeholder)
+            return
+        }
+        self = Image(uiImage: uiImage)
     }
 }

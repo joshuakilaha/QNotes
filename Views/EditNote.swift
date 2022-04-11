@@ -43,8 +43,6 @@ struct EditNote: View {
                                 .cornerRadius(6)
                         }
                   
-                       // Image(uiImage: UIImage(data: $images)!)
-                        
                         if self.image.count > 0 {
                             Button(action: {
                                 self.show.toggle()
@@ -98,7 +96,6 @@ struct EditNote: View {
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button ("Update") {
-                    //NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note)
                     NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note, imageN: image)
                     dismiss()
                 }

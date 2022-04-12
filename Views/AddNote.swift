@@ -16,6 +16,9 @@ struct AddNote: View {
     @State private var topic = ""
     @State private var subject = ""
     @State private var note = ""
+    @State private var image: Data? = .init(count: 0)
+    
+    @State private var show = false
     
     var body: some View {
         
@@ -23,6 +26,20 @@ struct AddNote: View {
             
             ZStack(alignment: .topLeading) {
                 Form {
+                    Section(header: Text("Image")) {
+                    
+                        //MARK: -TO DO  ADD progress bar
+
+                        Button(action: {
+                            self.show.toggle()
+                        }) {
+                            Image(data: self.image, placeholder: "noImage")
+                                .renderingMode(.original)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .cornerRadius(6)
+                        }
+                    }
                     Section {
                        TextField("Topic", text: $topic)
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -34,20 +51,23 @@ struct AddNote: View {
                             .frame( height: 400)
                     }
                 }
-    
-                
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button ("Done") {
-                        NoteDataController().addNote(context: managedObjContext, topic: topic, subject: subject, notes: note)
+                        //MARK: Add Note
+                        NoteDataController().addNote(context: managedObjContext, topic: topic, subject: subject, notes: note, imageN: image)
                         dismiss()
                     }
                 }
             }
             
         }
-       
+        
+        //MARK: Image Picker from photos
+        .sheet(isPresented: self.$show, content: {
+            ImagePicker(show: self.$show, image: self.$image)
+        })
     }
 }
 

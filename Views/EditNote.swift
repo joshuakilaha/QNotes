@@ -14,6 +14,10 @@ struct EditNote: View {
     @State private var topic = ""
     @State private var subject = ""
     @State private var note = ""
+    @State private var image: Data? = .init(count: 0)
+   // @State private var imageN: Data
+    
+    @State private var show = false //add icon
     
     var notes: FetchedResults<Note>.Element
     
@@ -22,6 +26,22 @@ struct EditNote: View {
             
             VStack(spacing: 20) {
                 Form {
+                    
+                    Section(header: Text("Image")) {
+                        
+                        //MARK: -To DO (condition to check nots.imageN ✅
+                        Button {
+                            self.show.toggle()
+                        } label: {
+
+                                Image(data: self.image, placeholder: "noImage")
+                                .renderingMode(.original)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .cornerRadius(6)
+                        }
+                        
+                    }
                     Section(header: Text("Topic").fontWeight(.heavy).foregroundColor(.blue)) {
                         TextField("Topic", text: $topic)
                             .font(.title)
@@ -40,6 +60,8 @@ struct EditNote: View {
                     topic = notes.topic!
                     subject = notes.subject!
                     note = notes.notes!
+                    //MARK: Handle optional image ✅
+                    image = notes.imageN
               }
             }
             .navigationBarHidden(true)
@@ -49,11 +71,15 @@ struct EditNote: View {
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button ("Update") {
-                    NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note)
+                    NoteDataController().editNote(context: managedObjContext, note: notes, topic: topic, subject: subject, notes: note, imageN: image)
                     dismiss()
                 }
             }
         }
+        
+        //MARK: Image Picker from photos
+        .sheet(isPresented: self.$show, content: {
+            ImagePicker(show: self.$show, image: self.$image)
+        })
     }
 }
-

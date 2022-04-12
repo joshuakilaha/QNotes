@@ -47,7 +47,7 @@ class NoteDataController: ObservableObject {
      @subject
      @notes
      */
-    func addNote(context: NSManagedObjectContext, topic: String, subject: String, notes: String){
+    func addNote(context: NSManagedObjectContext, topic: String, subject: String, notes: String, imageN: Data?){
         
         let note = Note(context: context)
         
@@ -56,7 +56,9 @@ class NoteDataController: ObservableObject {
         note.subject = subject
         note.notes = notes
         note.date = Date()
+        note.imageN = imageN
         
+        print("\(String(describing: note.imageN)) Image Added")
         saveNote(context: context)
     }
     
@@ -68,12 +70,13 @@ class NoteDataController: ObservableObject {
      @subject
      @notes
      */
-    func editNote(context: NSManagedObjectContext,note: Note, topic: String, subject: String, notes: String)  {
+    func editNote(context: NSManagedObjectContext,note: Note, topic: String, subject: String, notes: String, imageN: Data?)  {
         
         note.topic = topic
         note.subject = subject
         note.notes = notes
         note.date = Date()
+        note.imageN = imageN
         
         saveNote(context: context)
     }

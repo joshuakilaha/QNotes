@@ -11,9 +11,7 @@ import CoreData
 struct ContentView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
-    //@Environment(\.dismiss) var dismiss
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var note: FetchedResults<Note>
-    
     
     @State private var showingAddView = false //add icon
     
@@ -26,6 +24,17 @@ struct ContentView: View {
                          ForEach(note) { note in
                              NavigationLink(destination: EditNote(notes: note)) {
                                  HStack{
+                                     if note.imageN == nil {
+                                         Image("noImage")
+                                             .resizable()
+                                            .frame(width: 70, height: 70)
+                                     }
+                                      else {
+                                          //MARK: - To DO (Optional Image fix) ✅
+                                          Image(data: note.imageN, placeholder: "noImage")
+                                              .resizable()
+                                             .frame(width: 70, height: 70)
+                                      }
                                      VStack(alignment: .leading, spacing: 6) {
                                          Text(note.topic!)
                                              .fontWeight(.black)

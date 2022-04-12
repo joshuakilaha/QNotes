@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct ImageView: View {
+    @Environment(\.managedObjectContext) var managedObjContext
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var note: FetchedResults<Note>
+    
+
     var body: some View {
         HStack {
-            Image("car")
-                .resizable()
-                .frame(width: 100, height: 100)
-                .padding()
-            VStack {
-                Text("topic")
-                    .font(.title)
-                Text("title")
+            if note.imageN == nil {
+                Image("noImage")
+                    .resizable()
+                   .frame(width: 70, height: 70)
             }
-            .font(/*@START_MENU_TOKEN@*/.subheadline/*@END_MENU_TOKEN@*/)
-            Spacer()
-            Text("4 minutes ago")
-           
-            
+             else {
+                 //MARK: - To DO (Optional Image fix) ✅
+                 Image(data: note.imageN, placeholder: "noImage")
+                     .resizable()
+                    .frame(width: 70, height: 70)
+             }
         }
     }
 }

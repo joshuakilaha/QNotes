@@ -16,7 +16,7 @@ struct AddNote: View {
     @State private var topic = ""
     @State private var subject = ""
     @State private var note = ""
-    @State private var image: Data = .init(count: 0)
+    @State private var image: Data? = .init(count: 0)
     
     @State private var show = false
     
@@ -27,27 +27,17 @@ struct AddNote: View {
             ZStack(alignment: .topLeading) {
                 Form {
                     Section(header: Text("Image")) {
-                        if self.image.count > 0 {
-                            Button(action: {
-                                self.show.toggle()
-                            }) {
-                                //MARK: -TO DO  ADD progress bar
-                                Image(uiImage: UIImage(data: self.image)!)
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .frame(width: 150, height: 150)
-                                    .cornerRadius(6)
-                                
-                                
-                            }
-                        } else {
-                            Button(action: {
-                                self.show.toggle()
-                            }) {
-                                Image(systemName: "photo.fill")
-                                    .font(.system(size: 60))
-                                    .foregroundColor(.gray)
-                            }
+                    
+                        //MARK: -TO DO  ADD progress bar
+
+                        Button(action: {
+                            self.show.toggle()
+                        }) {
+                            Image(data: self.image, placeholder: "noImage")
+                                .renderingMode(.original)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .cornerRadius(6)
                         }
                     }
                     Section {
@@ -61,8 +51,6 @@ struct AddNote: View {
                             .frame( height: 400)
                     }
                 }
-    
-                
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {

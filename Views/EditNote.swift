@@ -14,7 +14,8 @@ struct EditNote: View {
     @State private var topic = ""
     @State private var subject = ""
     @State private var note = ""
-    @State private var image: Data = .init(count: 0)
+    @State private var image: Data? = .init(count: 0)
+   // @State private var imageN: Data
     
     @State private var show = false //add icon
     
@@ -28,46 +29,18 @@ struct EditNote: View {
                     
                     Section(header: Text("Image")) {
                         
-                        //MARK: -To DO (condition to check nots.imageN
-                        if notes.imageN == nil {
-                            
-                         Image(systemName: "photo.fill")
-                             .font(.system(size: 60))
-                             .foregroundColor(.gray)
+                        //MARK: -To DO (condition to check nots.imageN ✅
+                        Button {
+                            self.show.toggle()
+                        } label: {
 
-                        } else {
-                            Image(uiImage: UIImage(data: notes.imageN!)!)
+                                Image(data: self.image, placeholder: "noImage")
                                 .renderingMode(.original)
                                 .resizable()
                                 .frame(width: 150, height: 150)
                                 .cornerRadius(6)
                         }
-                  
-                        if self.image.count > 0 {
-                            Button(action: {
-                                self.show.toggle()
-                            }) {
-//                                Image(uiImage: UIImage(data: notes.imageN!)!)
-//                                    .renderingMode(.original)
-//                                    .resizable()
-//                                    .frame(width: 150, height: 150)
-//                                    .cornerRadius(6)
-
-                              // Text("Change Image") + Text(Image(uiImage: UIImage(data: self.image)!))
-                                Image(uiImage: UIImage(data: self.image)!)
-                                
-
-                            }
-                        }
-                        else {
-                            Button(action: {
-                                self.show.toggle()
-                            }) {
-                                Text("Change Image") + Text(Image(systemName: "photo.fill"))
-                                    .font(.system(size: 60))
-                                    .foregroundColor(.gray)
-                            }
-                        }
+                        
                     }
                     Section(header: Text("Topic").fontWeight(.heavy).foregroundColor(.blue)) {
                         TextField("Topic", text: $topic)
@@ -87,6 +60,8 @@ struct EditNote: View {
                     topic = notes.topic!
                     subject = notes.subject!
                     note = notes.notes!
+                    //MARK: Handle optional image ✅
+                    image = notes.imageN
               }
             }
             .navigationBarHidden(true)
@@ -108,4 +83,3 @@ struct EditNote: View {
         })
     }
 }
-

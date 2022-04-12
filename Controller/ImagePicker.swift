@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var show : Bool
-    @Binding var image : Data
+    @Binding var image : Data?
     
     func makeCoordinator() -> ImagePicker.Coordinator {
         return ImagePicker.Coordinator(child1: self)

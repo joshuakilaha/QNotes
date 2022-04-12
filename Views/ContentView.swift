@@ -11,12 +11,10 @@ import CoreData
 struct ContentView: View {
     
     @Environment(\.managedObjectContext) var managedObjContext
-
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var note: FetchedResults<Note>
     
     @State private var showingAddView = false //add icon
-    var img = Image(systemName: "photo.fill")
-  
+    
     var body: some View {
         
         NavigationView {
@@ -26,17 +24,14 @@ struct ContentView: View {
                          ForEach(note) { note in
                              NavigationLink(destination: EditNote(notes: note)) {
                                  HStack{
-                                     
-                                     let _ =  print("\(String(describing: note.imageN)) Image")
-                                     
                                      if note.imageN == nil {
-                                         Image(systemName: "photo.fill")
-                                             .font(.system(size: 60))
-                                             .foregroundColor(.gray)
+                                         Image("noImage")
+                                             .resizable()
+                                            .frame(width: 70, height: 70)
                                      }
                                       else {
-                                          //MARK: - To DO (Optional Image fix)
-                                          Image(data: note.imageN, placeholder: String(describing: img))
+                                          //MARK: - To DO (Optional Image fix) ✅
+                                          Image(data: note.imageN, placeholder: "noImage")
                                               .resizable()
                                              .frame(width: 70, height: 70)
                                       }
@@ -122,28 +117,5 @@ extension UINavigationBarAppearance {
         backgroundColor = background
         UINavigationBar.appearance().scrollEdgeAppearance = self
         UINavigationBar.appearance().standardAppearance = self
-    }
-}
-
-//extension Image {
-//
-//    public init?(data: Data?) {
-//        guard let data = data,
-//            let uiImage = UIImage(data: data) else {
-//                return nil
-//        }
-//        self = Image(uiImage: uiImage)
-//    }
-//}
-
-extension Image {
-
-    public init(data: Data?, placeholder: String) {
-        guard let data = data,
-          let uiImage = UIImage(data: data) else {
-            self = Image(placeholder)
-            return
-        }
-        self = Image(uiImage: uiImage)
     }
 }

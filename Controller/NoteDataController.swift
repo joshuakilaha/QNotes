@@ -47,7 +47,7 @@ class NoteDataController: ObservableObject {
      @subject
      @notes
      */
-    func addNote(context: NSManagedObjectContext, topic: String, subject: String, notes: String, imageN: Data){
+    func addNote(context: NSManagedObjectContext, topic: String, subject: String, notes: String, imageN: Data?){
         
         let note = Note(context: context)
         
@@ -70,7 +70,7 @@ class NoteDataController: ObservableObject {
      @subject
      @notes
      */
-    func editNote(context: NSManagedObjectContext,note: Note, topic: String, subject: String, notes: String, imageN: Data)  {
+    func editNote(context: NSManagedObjectContext,note: Note, topic: String, subject: String, notes: String, imageN: Data?)  {
         
         note.topic = topic
         note.subject = subject

@@ -1,5 +1,5 @@
 # QNotes
- Quick Notes Application - using Core Data SwiftUI
+ Quick Notes Application - using Core Data & CloudKit SwiftUI
  
  ## Core Data
  Persist or cache data on a single device, or sync data to multiple devices with Cloudkit

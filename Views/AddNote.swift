@@ -22,9 +22,27 @@ struct AddNote: View {
     
     var body: some View {
         
-        NavigationView {
-            
-            ZStack(alignment: .topLeading) {
+            VStack {
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .font(.title3)
+                            .frame(width: 80, height: 30)
+                    }
+                    Spacer()
+                    
+                    Button {
+                        NoteDataController().addNote(context: managedObjContext, topic: topic, subject: subject, notes: note, imageN: image)
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .frame(width: 70, height: 30)
+                    }
+                } .padding()
                 Form {
                     Section(header: Text("Image")) {
                     
@@ -52,17 +70,6 @@ struct AddNote: View {
                     }
                 }
             }
-            .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button ("Done") {
-                        //MARK: Add Note
-                        NoteDataController().addNote(context: managedObjContext, topic: topic, subject: subject, notes: note, imageN: image)
-                        dismiss()
-                    }
-                }
-            }
-            
-        }
         
         //MARK: Image Picker from photos
         .sheet(isPresented: self.$show, content: {

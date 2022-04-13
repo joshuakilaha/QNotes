@@ -20,17 +20,19 @@ struct NoteCell: View {
            .frame(width: 70, height: 70)
             VStack {
                 Text(topic)
-                    .fontWeight(.black)
+                    .font(.title2)
+                    .fontWeight(.semibold)
                     .bold()
                 Text(subject)
+                    .font(.title2)
                     .fontWeight(.light)
-                    .italic()
             }
             Spacer()
         Text(calcTimeSince(date:date))
-                .foregroundColor(.gray)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
                 .italic()
-        }.padding()
+        }
     }
 }
 

@@ -23,42 +23,13 @@ struct ContentView: View {
                     List {
                          ForEach(note) { note in
                              NavigationLink(destination: EditNote(notes: note)) {
-                                 HStack{
-                                     if note.imageN == nil {
-                                         Image("noImage")
-                                             .resizable()
-                                            .frame(width: 70, height: 70)
-                                     }
-                                      else {
-                                          //MARK: - To DO (Optional Image fix) ✅
-                                          Image(data: note.imageN, placeholder: "noImage")
-                                              .resizable()
-                                             .frame(width: 70, height: 70)
-                                      }
-                                     VStack(alignment: .leading, spacing: 6) {
-                                         Text(note.topic!)
-                                             .fontWeight(.black)
-                                             .bold()
-                                             
-                                         
-                                         Text(note.subject!)
-                                             .fontWeight(.light)
-                                             .italic()
-                                             
-                                     }
-                                     Spacer()
-                                     Text(calcTimeSince(date: note.date!))
-                                         .foregroundColor(.gray)
-                                         .italic()
-                                 }
+                                 NoteCell(topic: note.topic!, subject: note.subject!, imageN: note.imageN, date: note.date!)
                              }
                          }
                          .onDelete(perform: deleteNote)
                      } .listStyle(.plain)
                  }
-                .onAppear{
-                    UINavigationBarAppearance().setColor(title: .blue, background: .white)
-                }
+
                 .navigationTitle("Quick Notes")
                 
             }
@@ -71,7 +42,6 @@ struct ContentView: View {
             
             //MARK: ADD Note
             ToolbarItem(placement: .bottomBar) {
-                
                 HStack {
                     Spacer ()
                     Button {
@@ -82,11 +52,9 @@ struct ContentView: View {
                 }
             }
         }
-        
         .sheet(isPresented: $showingAddView) {
             AddNote()
         }
-        
     }
     
     //MARK: -Delete Note
@@ -101,21 +69,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-
-//MARK: -Navigation Appearance
-
-extension UINavigationBarAppearance {
-    func setColor(title: UIColor? = nil, background: UIColor? = nil) {
-        configureWithTransparentBackground()
-        if let titleColor = title {
-            largeTitleTextAttributes = [.foregroundColor: titleColor]
-            titleTextAttributes = [.foregroundColor: titleColor]
-        }
-        backgroundColor = background
-        UINavigationBar.appearance().scrollEdgeAppearance = self
-        UINavigationBar.appearance().standardAppearance = self
     }
 }

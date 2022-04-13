@@ -4,13 +4,11 @@
         <attribute name="date" optional="YES" attributeType="Date" defaultDateTimeInterval="671020440" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageN" optional="YES" attributeType="Binary"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="subject" optional="YES" attributeType="String"/>
         <attribute name="topic" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-54" positionY="-9" width="128" height="149"/>
+        <element name="Note" positionX="-54" positionY="-9" width="128" height="119"/>
     </elements>
 </model>

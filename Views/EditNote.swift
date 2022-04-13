@@ -15,7 +15,6 @@ struct EditNote: View {
     @State private var subject = ""
     @State private var note = ""
     @State private var image: Data? = .init(count: 0)
-   // @State private var imageN: Data
     
     @State private var show = false //add icon
     

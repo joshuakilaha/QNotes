@@ -20,12 +20,12 @@ func calcTimeSince(date: Date) -> String {
     let hours = minute / 60
     let days = hours / 24
     
-    var longDate : String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-       // return dateFormatter.string(from: Date())
-        return dateFormatter.string(from: Date(timeInterval: TimeInterval(days), since: Date()))
-    }
+//    var longDate : String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd MMM yyyy"
+//       // return dateFormatter.string(from: Date())
+//        return dateFormatter.string(from: Date(timeInterval: TimeInterval(days), since: Date()))
+//    }
     
     if minute < 60 {
         return "\(minute) minutes ago"
@@ -33,10 +33,7 @@ func calcTimeSince(date: Date) -> String {
     else if minute > 60 && hours < 24 {
         return "\(hours) hours ago"
     }
-    else if hours > 24 && hours < 48 {
-        return "yesterday"
-       
-    } else {
-        return longDate
+    else {
+        return "\(days) days ago"
     }
 }

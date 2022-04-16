@@ -29,10 +29,10 @@ struct ContentView: View {
                          .onDelete(perform: deleteNote)
                      } .listStyle(.plain)
                  }
-
                 .navigationTitle("Quick Notes")
-                
             }
+        .navigationViewStyle(.stack)
+        
         .toolbar {
             
             //MARK: -Edit button

@@ -23,20 +23,18 @@ struct EditNote: View {
     var body: some View {
         NavigationView {
             
-            VStack(spacing: 20) {
+            VStack {
                 Form {
-                    
                     Section(header: Text("Image")) {
-                        
                         //MARK: -To DO (condition to check nots.imageN ✅
                         Button {
                             self.show.toggle()
                         } label: {
 
                                 Image(data: self.image, placeholder: "noImage")
-                                .renderingMode(.original)
+                                //.renderingMode(.original)
                                 .resizable()
-                                .frame(width: 150, height: 150)
+                                .aspectRatio(contentMode: .fit)
                                 .cornerRadius(6)
                         }
                         
